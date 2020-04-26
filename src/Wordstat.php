@@ -22,6 +22,7 @@ class Wordstat
         $this->token = $token;
     }
 
+
     /**
      * @param array $phrases
      * @return array|bool|string
