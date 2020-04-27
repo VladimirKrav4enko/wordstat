@@ -3,7 +3,9 @@
     "description": "yandex wordstat",
     "type": "library",
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "ext-curl": "*",
+        "ext-json": "*"
     },
     "license": "proprietary",
     "authors": [

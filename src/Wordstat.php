@@ -9,6 +9,10 @@ class Wordstat
 
     private $token = null;
 
+    /**
+     * https://oauth.yandex.ru/authorize?response_type=token&client_id=<идентификатор приложения>
+     * Wordstat constructor.
+     */
     public function __construct()
     {
         $this->setToken('AgAAAAADq7m9AAWyq-oJGEZt7Ee0tzUBmuMMacM');
@@ -25,7 +29,7 @@ class Wordstat
 
     /**
      * @param array $phrases
-     * @return array|bool|string
+     * @return null|int
      */
     public function createReport(array $phrases){
         $params = [
@@ -40,11 +44,51 @@ class Wordstat
 
         try {
             $content = (array) json_decode($content, 1);
+            return $content['data'];
+
         }catch (Exception $exception){
-            return [];
+            return null;
+        }
+    }
+
+    /**
+     * @param integer $reportId
+     * @return array|mixed
+     */
+    public function getReport($reportId){
+        $params = [
+            'method'    => 'GetWordstatReport',
+            'token'     => $this->token,
+            'param'     => $reportId
+        ];
+
+        $content = self::call('https://api-sandbox.direct.yandex.ru/live/v4/json/', json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
+
+        try {
+            $content = (array) json_decode($content, 1);
+            return $content;
+
+        }catch (Exception $exception){
+            return false;
+        }
+    }
+
+    public function deleteReport($reportId){
+        $params = [
+            'method'    => 'DeleteWordstatReport',
+            'token'     => $this->token,
+            'param'     => $reportId
+        ];
+
+        $content = self::call('https://api-sandbox.direct.yandex.ru/live/v4/json/', json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
+
+        try {
+            return (bool) $content['data'];
+
+        }catch (Exception $exception){
+            return false;
         }
 
-        return $content;
     }
 
     /**
