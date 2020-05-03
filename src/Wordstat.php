@@ -7,6 +7,7 @@ use Exception;
 class Wordstat
 {
 
+    const API_URL = 'https://api-sandbox.direct.yandex.ru/live/v4/json/';
     private $token = null;
 
     /**
@@ -40,7 +41,7 @@ class Wordstat
             ]
         ];
 
-        $content = self::call('https://api-sandbox.direct.yandex.ru/live/v4/json/', json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
+        $content = self::call(self::API_URL, json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
 
         try {
             $content = (array) json_decode($content, 1);
@@ -62,7 +63,7 @@ class Wordstat
             'param'     => $reportId
         ];
 
-        $content = self::call('https://api-sandbox.direct.yandex.ru/live/v4/json/', json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
+        $content = self::call(self::API_URL, json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
 
         try {
             $content = (array) json_decode($content, 1);
@@ -80,7 +81,7 @@ class Wordstat
             'param'     => $reportId
         ];
 
-        $content = self::call('https://api-sandbox.direct.yandex.ru/live/v4/json/', json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
+        $content = self::call(self::API_URL, json_encode($params, JSON_UNESCAPED_UNICODE), 'POST');
 
         try {
             return (bool) $content['data'];
